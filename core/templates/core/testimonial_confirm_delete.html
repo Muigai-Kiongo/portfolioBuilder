@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card-3d">
+    <h2>Delete Testimonial</h2>
+    <p>Are you sure you want to delete this testimonial?</p>
+    <form method="post">{% csrf_token %}
+        <button type="submit" class="btn">Delete</button>
+        <a class="btn" href="{% url 'portfolio_detail' testimonial.portfolio.pk %}">Cancel</a>
+    </form>
+</div>
+{% endblock %}

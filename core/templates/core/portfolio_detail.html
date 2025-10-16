@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="patch-3d">
+    <h2>{{ portfolio.title }}</h2>
+    <p><strong>Bio:</strong> {{ portfolio.bio }}</p>
+    {% if portfolio.template %}
+        <p><strong>Template:</strong> {{ portfolio.template.name }}</p>
+    {% else %}
+        <p><strong>Template:</strong> <em>None</em></p>
+    {% endif %}
+    <p><strong>Published:</strong> {{ portfolio.published|yesno:"Yes,No" }}</p>
+    <a class="btn" href="{% url 'section_create' portfolio.pk %}">Add Section</a>
+    <a class="btn" href="{% url 'media_upload' portfolio.pk %}">Upload Media</a>
+    <a class="btn" href="{% url 'testimonial_create' portfolio.pk %}">Add Testimonial</a>
+</section>
+
+<h3 style="margin-left:2vw;">Sections</h3>
+{% for section in sections %}
+    <section class="patch-3d">
+        <h4>{{ section.title }}</h4>
+        <p>{{ section.content|linebreaks }}</p>
+        <a class="btn" href="{% url 'section_update' section.pk %}">Edit</a>
+        <a class="btn" href="{% url 'section_delete' section.pk %}">Delete</a>
+        {% if section.media.all %}
+            <div>
+                <strong>Media:</strong>
+                <ul>
+                {% for media in section.media.all %}
+                    <li>
+                        <a href="{{ media.file.url }}" target="_blank">{{ media.media_type }}</a>
+                        <a class="btn" href="{% url 'media_delete' media.pk %}">Delete</a>
+                    </li>
+                {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+    </section>
+{% endfor %}
+
+<h3 style="margin-left:2vw;">Testimonials</h3>
+{% for testimonial in testimonials %}
+    <section class="patch-3d">
+        <strong>{{ testimonial.name }}</strong>
+        <p>{{ testimonial.feedback }}</p>
+        <a class="btn" href="{% url 'testimonial_delete' testimonial.pk %}">Delete</a>
+    </section>
+{% endfor %}
+{% endblock %}

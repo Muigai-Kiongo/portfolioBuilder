@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card-3d">
+    <h2>Delete Template</h2>
+    <p>Are you sure you want to delete "{{ template.name }}"?</p>
+    <form method="post">{% csrf_token %}
+        <button type="submit" class="btn">Delete</button>
+        <a class="btn" href="{% url 'template_list' %}">Cancel</a>
+    </form>
+</div>
+{% endblock %}

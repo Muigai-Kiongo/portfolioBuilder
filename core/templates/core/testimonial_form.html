@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Add Testimonial for {{ portfolio.title }}</h2>
+<form method="post">
+    {% csrf_token %}
+    <div class="card-3d">
+        {{ form.as_p }}
+        <button type="submit" class="btn">Save Testimonial</button>
+    </div>
+</form>
+{% endblock %}

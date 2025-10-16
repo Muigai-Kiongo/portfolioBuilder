@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="patch-3d">
+    <h2>Step 3: Choose a Template</h2>
+    <form method="post">
+        {% csrf_token %}
+        <div style="display:flex;flex-wrap:wrap;gap:24px;">
+            {% for template in templates %}
+                <label style="display:block;cursor:pointer;">
+                    <input type="radio" name="template_id" value="{{ template.id }}" required>
+                    <strong>{{ template.name }}</strong><br>
+                    {% if template.preview_image %}
+                        <img src="{{ template.preview_image.url }}" alt="Preview" style="max-width:160px;border-radius:8px;">
+                    {% endif %}
+                    <span style="font-size:0.9em;">{{ template.description }}</span>
+                </label>
+            {% endfor %}
+        </div>
+        <br>
+        <button type="submit" class="btn">Finalize Portfolio</button>
+    </form>
+</section>
+{% endblock %}

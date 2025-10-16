@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="patch-3d">
+    <h2>Your Portfolios</h2>
+    {% if portfolios %}
+        <div style="display: flex; flex-wrap: wrap; gap: 32px; justify-content: flex-start;">
+            {% for portfolio in portfolios %}
+                <div class="patch-3d" style="max-width: 340px; min-width: 220px; margin: 0;">
+                    <h3>
+                        <a href="{% url 'portfolio_preview' portfolio.pk %}">{{ portfolio.title }}</a>
+                        {% if portfolio.published %}
+                            <span style="color:#00ffd0; font-size: 1.2em;">&#9679; Published</span>
+                        {% endif %}
+                    </h3>
+                    <p>{{ portfolio.bio|truncatewords:20 }}</p>
+                    <div style="margin-top: 14px;">
+                        <a class="btn" href="{% url 'portfolio_update' portfolio.pk %}">Edit</a>
+                        <a class="btn" href="{% url 'portfolio_delete' portfolio.pk %}">Delete</a>
+                        <a class="btn" href="{% url 'portfolio_preview' portfolio.pk %}" style="background: linear-gradient(90deg, #ffed4a 40%, #00ffd0 100%); color:#232526;">Preview</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="patch-3d">
+            <p>No portfolios yet. <a href="{% url 'wizard_step1' %}">Create one now!</a></p>
+        </div>
+    {% endif %}
+</section>
+{% endblock %}

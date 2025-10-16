@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="patch-3d">
+    <h2>Step 2: Portfolio Bio</h2>
+    <form method="post">
+        {% csrf_token %}
+        <textarea name="bio" placeholder="Describe yourself..." required style="width:80%;height:100px;padding:8px;"></textarea>
+        <br><br>
+        <button type="submit" class="btn">Next</button>
+    </form>
+</section>
+{% endblock %}

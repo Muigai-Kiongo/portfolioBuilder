@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="patch-3d">
+    <h2>Step 1: Portfolio Title</h2>
+    <form method="post">
+        {% csrf_token %}
+        <input type="text" name="title" placeholder="Portfolio Title" required style="width:80%;padding:8px;">
+        <br><br>
+        <button type="submit" class="btn">Next</button>
+    </form>
+</section>
+{% endblock %}

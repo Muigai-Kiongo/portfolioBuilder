@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>{% if form.instance.pk %}Edit{% else %}Add{% endif %} Social Link</h2>
+<form method="post">
+    {% csrf_token %}
+    <div class="card-3d">
+        {{ form.as_p }}
+        <button type="submit" class="btn">Save Link</button>
+    </div>
+</form>
+{% endblock %}

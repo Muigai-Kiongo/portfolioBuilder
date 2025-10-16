@@ -2,12 +2,217 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>PortfolioCraft</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio Builder</title>
+    <!-- Google Fonts & Font Awesome for icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Orbitron', Arial, sans-serif;
+            background: radial-gradient(ellipse at top left, #35376d 0%, #232526 60%, #414345 100%);
+            color: #f8f8f8;
+            min-height: 100vh;
+            overflow-x: hidden;
+            transition: background 0.6s;
+        }
+        header {
+            background: linear-gradient(90deg, #232526 40%, #3a4750 100%);
+            box-shadow: 0 2px 24px rgba(31,38,135,0.25);
+            text-align: center;
+            padding: 32px 0 18px 0;
+            border-radius: 0 0 24px 24px;
+            position: relative;
+            z-index: 2;
+        }
+        header h1 {
+            font-size: 2.8rem;
+            letter-spacing: 2px;
+            color: #00ffd0;
+            text-shadow: 0 4px 18px #00796b, 0 1px 0px #fff;
+            margin: 0;
+        }
+        nav {
+            margin-top: 28px;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        nav a {
+            color: #00ffd0;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.12rem;
+            position: relative;
+            transition: color 0.2s;
+            padding: 2px 12px;
+            border-radius: 14px;
+        }
+        nav a:hover, nav a.active {
+            color: #ffed4a;
+            background: #232526;
+        }
+        nav a.active:after {
+            content: '';
+            display: block;
+            width: 50%;
+            border-bottom: 2px solid #ffed4a;
+            margin: 0 auto;
+            margin-top: 2px;
+        }
+        .logo-3d {
+            font-size: 3.3rem;
+            color: #00ffd0;
+            text-shadow: 2px 2px 50px #00ffd0, 0 1px 10px #fff;
+            transform: rotateY(-20deg) scale(1.05);
+            letter-spacing: 4px;
+            margin-bottom: 8px;
+            display: inline-block;
+        }
+        main {
+            margin: 40px auto 0 auto;
+            min-height: 60vh;
+            max-width: 1200px;
+            width: 96vw;
+            transform-style: preserve-3d;
+            box-shadow: none;
+            border-radius: 0;
+            background: none;
+            padding: 0 0 60px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            gap: 38px;
+        }
+        .patch-3d {
+            background: rgba(60, 72, 87, 0.97);
+            border-radius: 18px;
+            box-shadow: 0 14px 32px 3px #00ffd055, 0 1px 16px 1px #232526 inset;
+            padding: 2rem 2.5rem;
+            margin: 0 auto;
+            max-width: 950px;
+            width: 95%;
+            transform: perspective(900px) rotateY(-8deg) scale(1.01);
+            transition: transform 0.22s, box-shadow 0.22s;
+            position: relative;
+            animation: patchFadeIn 0.9s cubic-bezier(.4,0,.2,1);
+        }
+        .patch-3d:hover {
+            transform: perspective(900px) rotateY(6deg) scale(1.04);
+            box-shadow: 0 24px 48px 6px #00ffd099, 0 2px 24px 2px #fff inset;
+        }
+        @keyframes patchFadeIn {
+            0% { opacity: 0; transform: perspective(900px) rotateY(-16deg) scale(0.97);}
+            100% { opacity: 1; transform: perspective(900px) rotateY(-8deg) scale(1.01);}
+        }
+        .btn {
+            background: linear-gradient(90deg, #00ffd0 40%, #00bcd4 100%);
+            color: #232526;
+            font-weight: 700;
+            font-size: 1rem;
+            border: none;
+            border-radius: 30px;
+            padding: 10px 28px;
+            box-shadow: 0 2px 16px #00ffd0aa;
+            cursor: pointer;
+            transition: background 0.2s, box-shadow 0.2s, transform 0.18s;
+        }
+        .btn:hover {
+            background: linear-gradient(90deg, #ffed4a 40%, #00ffd0 100%);
+            box-shadow: 0 2px 24px #ffed4aaa;
+            transform: scale(1.07);
+        }
+        .logic-flow {
+            display: flex;
+            justify-content: center;
+            margin: 32px 0 0 0;
+            gap: 12px;
+        }
+        .flow-step {
+            background: #232526;
+            color: #00ffd0;
+            border-radius: 15px;
+            box-shadow: 0 2px 12px #00ffd055;
+            padding: 8px 26px;
+            font-size: 1.07rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            opacity: 0.7;
+            transition: opacity 0.2s, background 0.2s;
+        }
+        .flow-step.active, .flow-step.completed {
+            opacity: 1;
+            background: linear-gradient(90deg, #00ffd0 20%, #00796b 100%);
+            color: #232526;
+        }
+        .flow-step.completed {
+            background: linear-gradient(90deg, #ffed4a 20%, #00ffd0 80%);
+            color: #232526;
+        }
+        .flow-arrow {
+            font-size: 1.5em;
+            color: #00ffd0;
+            align-self: center;
+        }
+        footer {
+            text-align: center;
+            padding: 26px 0;
+            color: #bbb;
+            font-size: 1rem;
+            background: #232526;
+            border-radius: 20px 20px 0 0;
+            margin-top: 40px;
+        }
+        @media (max-width: 1000px) {
+            .patch-3d { padding: 1rem 1rem; }
+            main { padding: 0 0 30px 0; }
+        }
+        @media (max-width: 700px) {
+            header h1 { font-size: 2rem; }
+            nav { gap: 18px; }
+            .logo-3d { font-size: 2rem; }
+            .patch-3d { padding: 0.6rem 0.2rem; width: 99%; }
+            .logic-flow { flex-direction: column; gap: 4px; align-items: flex-start;}
+            .flow-arrow { display: none; }
+        }
+    </style>
+    {% block extra_head %}{% endblock %}
 </head>
 <body>
-    {% block content %}
-    {% endblock %}
+    <header>
+        <span class="logo-3d"><i class="fa-solid fa-cube"></i> PortfolioCraft</span>
+        <h1>Build Your 3D Portfolio</h1>
+        <nav>
+            <a href="{% url 'portfolio_list' %}" {% if request.resolver_match.url_name == 'portfolio_list' %}class="active"{% endif %}><i class="fa-solid fa-briefcase"></i> My Portfolios</a>
+            <a href="{% url 'wizard_step1' %}" {% if request.resolver_match.url_name == 'wizard_step1' %}class="active"{% endif %}><i class="fa-solid fa-plus"></i> New Portfolio</a>
+            <a href="{% url 'template_list' %}" {% if request.resolver_match.url_name == 'template_list' %}class="active"{% endif %}><i class="fa-solid fa-layer-group"></i> Templates</a>
+            <a href="#" onclick="alert('Coming soon!');"><i class="fa-solid fa-users"></i> Gallery</a>
+            {% if user.is_authenticated %}
+                <a href="{% url 'logout' %}"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+            {% else %}
+                <a href="{% url 'login' %}"><i class="fa-solid fa-user"></i> Login</a>
+            {% endif %}
+        </nav>
+        {% block logic_flow %}
+        {% endblock %}
+    </header>
+    <main>
+        {% block content %}
+        <!-- Child templates: use <section class="patch-3d">...</section> for each segment -->
+        {% endblock %}
+    </main>
+    <footer>
+        <span>
+            &copy; {{ year|default:2025 }} PortfolioCraft. Created by Wambugu Godfrey Gocho.
+            <i class="fa-brands fa-github"></i>
+        </span>
+    </footer>
+    {% block extra_js %}{% endblock %}
 </body>
 </html>
